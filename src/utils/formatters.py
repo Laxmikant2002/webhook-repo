@@ -41,13 +41,3 @@ def get_ordinal_suffix(day: int) -> str:
     last_digit = day % 10
     suffixes = {1: 'st', 2: 'nd', 3: 'rd'}
     return suffixes.get(last_digit, 'th')
-
-def format_branch_name(branch_ref: str) -> str:
-    """Extract branch name from ref (refs/heads/main -> main)"""
-    if not branch_ref:
-        return ''
-    
-    if branch_ref.startswith('refs/heads/'):
-        return branch_ref[11:]  # Remove 'refs/heads/'
-    
-    return branch_ref
