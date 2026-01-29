@@ -52,7 +52,7 @@ class WebhookValidator:
         Returns:
             True if event type is supported
         """
-        supported_events = {'push', 'pull_request'}
+        supported_events = {'push', 'pull_request', 'ping'}
         return event_type in supported_events
 
 

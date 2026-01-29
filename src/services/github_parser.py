@@ -2,6 +2,7 @@
 import re
 from datetime import datetime
 from typing import Optional, Dict, Any
+from src.utils.formatters import format_timestamp_with_ordinal
 
 def parse_github_event(event_type: str, payload: Dict[str, Any]) -> Dict[str, Any]:
     """Main parser for GitHub events"""
@@ -33,7 +34,7 @@ def parse_push_event(payload: Dict[str, Any]) -> Dict[str, Any]:
         'action': 'PUSH',
         'from_branch': None,
         'to_branch': to_branch,
-        'timestamp': format_timestamp(timestamp) if timestamp else None,
+        'timestamp': format_timestamp_with_ordinal(timestamp) if timestamp else '',
     }
 
 def parse_pull_request_event(payload: Dict[str, Any]) -> Optional[Dict[str, Any]]:

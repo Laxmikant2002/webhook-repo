@@ -23,3 +23,12 @@ class Config:
     
     # Application settings
     EVENTS_LIMIT = int(os.environ.get('EVENTS_LIMIT', 50))
+
+
+class TestConfig(Config):
+    """Test configuration class."""
+    
+    TESTING = True
+    MONGO_URI = 'mongodb://localhost:27017/test_github_events'
+    SECRET_KEY = 'test-secret-key'
+    WEBHOOK_SECRET = 'test-webhook-secret'
