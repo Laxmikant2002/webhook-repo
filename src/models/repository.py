@@ -41,11 +41,7 @@ def get_recent_events(limit: int = 50):
 
 def ensure_indexes():
     """Create necessary MongoDB indexes"""
-    try:
-        mongo.db.events.create_index('request_id', unique=True)
-        mongo.db.events.create_index('created_at')
-        mongo.db.events.create_index('author')
-        mongo.db.events.create_index('action')
-        print("MongoDB indexes created successfully")
-    except Exception as e:
-        print(f"Could not create indexes (MongoDB may not be running): {e}")
+    mongo.db.events.create_index('request_id', unique=True)
+    mongo.db.events.create_index('created_at')
+    mongo.db.events.create_index('author')
+    mongo.db.events.create_index('action')

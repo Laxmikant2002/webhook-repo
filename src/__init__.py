@@ -36,9 +36,19 @@ def create_app(config_class=Config):
     app.register_blueprint(api_bp, url_prefix='/api')
     app.register_blueprint(views_bp)
     
-    # Create MongoDB indexes
+    # Create MongoDB indexes (skip if MongoDB not available)
     with app.app_context():
-        from src.models.repository import ensure_indexes
-        ensure_indexes()
+        print("Attempting to create MongoDB indexes...")
+        try:
+            from src.models.repository import ensure_indexes
+            print("Imported ensure_indexes successfully")
+            ensure_indexes()
+            print("ensure_indexes() completed successfully")
+        except Exception as e:
+            if app.config['DEBUG']:
+                print(f"Warning: Could not create MongoDB indexes: {e}")
+                print("Running without database indexes - some features may not work properly")
+            else:
+                raise
     
     return app
