@@ -1,0 +1,15 @@
+<!-- JavaScript libraries and utilities -->
+<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+<script src="{{ url_for('static', filename='js/poller.js') }}"></script>
+<script src="{{ url_for('static', filename='js/renderer.js') }}"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+<!-- Page-specific scripts can be added here -->
+<script>
+  // Global configuration
+  window.APP_CONFIG = {
+    API_BASE_URL: '{{ url_for("api.get_events") }}',
+    POLL_INTERVAL: 15000,
+    MAX_EVENTS: 50,
+  };
+</script>
