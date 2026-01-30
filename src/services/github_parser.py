@@ -1,8 +1,34 @@
-# Parse GitHub webhook payloads
 import re
 from datetime import datetime
 from typing import Optional, Dict, Any
-from src.utils.formatters import format_timestamp_with_ordinal
+
+def format_timestamp_with_ordinal(timestamp) -> str:
+    if not timestamp:
+        return ''
+    
+    if isinstance(timestamp, datetime):
+        dt = timestamp
+    else:
+        try:
+            iso_timestamp = timestamp
+            if iso_timestamp.endswith('Z'):
+                iso_timestamp = iso_timestamp[:-1] + '+00:00'
+            dt = datetime.fromisoformat(iso_timestamp)
+        except (ValueError, AttributeError):
+            dt = datetime.utcnow()
+    
+    day = dt.day
+    suffix = get_ordinal_suffix(day)
+    formatted_date = dt.strftime(f"{day}{suffix} %B %Y - %I:%M %p UTC")
+    formatted_date = formatted_date.replace(' 0', ' ')
+    return formatted_date
+
+def get_ordinal_suffix(day: int) -> str:
+    if 11 <= day <= 13:
+        return 'th'
+    last_digit = day % 10
+    suffixes = {1: 'st', 2: 'nd', 3: 'rd'}
+    return suffixes.get(last_digit, 'th')
 
 def parse_github_event(event_type: str, payload: Dict[str, Any]) -> Dict[str, Any]:
     """Main parser for GitHub events"""

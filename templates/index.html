@@ -1,68 +1,50 @@
-{% extends "base.html" %} {% block title %}GitHub Activity Dashboard - Real-time
-Monitoring{% endblock %} {% block extra_css %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/responsive.css') }}"
-/>
-{% endblock %} {% block content %}
-<div class="dashboard">
-  <div class="dashboard-header">
-    <h1><i class="fab fa-github"></i> GitHub Activity Monitor</h1>
-    <div class="dashboard-stats">
-      <div class="stat">
-        <span class="stat-label">Live</span>
-        <span class="stat-value"
-          ><div class="status-indicator active"></div
-        ></span>
-      </div>
-      <div class="stat">
-        <span class="stat-label">Polling</span>
-        <span class="stat-value">{{ polling_interval // 1000 }}s</span>
-      </div>
-      <div class="stat">
-        <span class="stat-label">Updated</span>
-        <span class="stat-value" id="last-update">Just now</span>
-      </div>
-    </div>
-  </div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Activity Monitor</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/app.css') }}"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="header-content">
+          <h1 class="title">
+            <span class="icon">📊</span>
+            GitHub Activity Monitor
+          </h1>
+          <div class="status">
+            <div class="status-dot"></div>
+            <span class="status-text">Live</span>
+            <span class="last-update" id="last-update">--:--:--</span>
+          </div>
+        </div>
+      </header>
 
-  <div class="events-container" id="events-container">
-    <div class="empty-state" id="empty-state">
-      <i class="fas fa-code-branch fa-3x"></i>
-      <h3>Waiting for GitHub Events</h3>
-      <p>Trigger a push, pull request, or merge to see activity here.</p>
-      <p class="hint">Make sure your GitHub webhook is configured correctly.</p>
+      <main class="main">
+        <div class="events" id="events-container">
+          <div class="empty-state" id="empty-state">
+            <div class="empty-icon">📭</div>
+            <h2>No Events Yet</h2>
+            <p>Waiting for GitHub activity...</p>
+          </div>
+        </div>
+      </main>
     </div>
-    <!-- Events will be dynamically inserted here -->
-  </div>
 
-  <div class="legend">
-    <div class="legend-item">
-      <span class="legend-color push"></span>
-      <span>Push Events</span>
-    </div>
-    <div class="legend-item">
-      <span class="legend-color pull-request"></span>
-      <span>Pull Requests</span>
-    </div>
-    <div class="legend-item">
-      <span class="legend-color merge"></span>
-      <span>Merges (Brownie Points)</span>
-    </div>
-  </div>
-</div>
-{% endblock %} {% block extra_js %}
-<script src="{{ url_for('static', filename='js/app.js') }}"></script>
-<script src="{{ url_for('static', filename='js/poller.js') }}"></script>
-<script src="{{ url_for('static', filename='js/renderer.js') }}"></script>
-<script>
-  // Initialize the dashboard
-  document.addEventListener('DOMContentLoaded', function() {
-      const dashboard = new ActivityDashboard({
-          pollingInterval: {{ polling_interval }},
-          apiEndpoint: '/api/events'
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const dashboard = new ActivityDashboard({
+          pollingInterval: 15000,
+          apiEndpoint: "/api/events",
+        });
+        dashboard.start();
       });
-      dashboard.start();
-  });
-</script>
-{% endblock %}
+    </script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>

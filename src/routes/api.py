@@ -1,33 +1,26 @@
-# src/routes/api.py - API endpoints for the dashboard
-from flask import Blueprint, jsonify, request, current_app
+from flask import Blueprint, jsonify, current_app
 from src.models.repository import get_recent_events
-from src.utils.constants import DEFAULT_EVENTS_LIMIT
 
 api_bp = Blueprint('api', __name__)
 
-@api_bp.route('/events', methods=['GET'])
+@api_bp.route('/events')
 def get_events():
-    """
-    Get recent events for the dashboard.
-
-    Returns the latest events sorted by creation time (newest first).
-    Limits results to prevent overwhelming the UI.
-    """
     try:
-        limit = int(request.args.get('limit', DEFAULT_EVENTS_LIMIT))
-        limit = min(limit, 100)  # Cap at 100 events
-
+        limit = current_app.config.get('EVENTS_LIMIT', 50)
         events = get_recent_events(limit)
-
-        if not events:
-            return jsonify({'success': True, 'events': []}), 200
-
-        current_app.logger.debug(f'Returning {len(events)} events')
-        return jsonify({'success': True, 'events': events}), 200
-
-    except ValueError as e:
-        current_app.logger.warning(f'Invalid limit parameter: {e}')
-        return jsonify({'error': 'Invalid limit parameter'}), 400
+        
+        return jsonify({
+            'success': True,
+            'events': events,
+            'count': len(events)
+        })
+    
+    except Exception as e:
+        current_app.logger.error(f'API error: {str(e)}')
+        return jsonify({
+            'success': False,
+            'error': 'Failed to retrieve events'
+        }), 500
     except Exception as e:
         current_app.logger.error(f'API error: {str(e)}')
         return jsonify({'error': 'Internal server error'}), 500
