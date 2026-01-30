@@ -1,77 +1,89 @@
-# 🚀 GitHub Webhook Monitor  
-*A real-time dashboard for GitHub push, pull request, and merge events.*  
+# 🚀 GitHub Webhook Monitor
+
+_A real-time dashboard for GitHub push, pull request, and merge events._
 
 ---
 
-## 📌 In a Nutshell  
+## 📌 In a Nutshell
+
 This project listens to GitHub webhooks, stores events in MongoDB, and displays them live in a minimal UI.  
 Built with Flask + MongoDB + modern vanilla frontend.
 
 ---
 
-## ✨ Features  
-- ✅ Real-time GitHub event tracking (Push, PR, Merge)  
-- ✅ Webhook receiver with MongoDB storage  
-- ✅ Auto-refreshing UI (15s polling)  
-- ✅ Clean, modern event display with CSS Grid  
+## ✨ Features
+
+- ✅ Real-time GitHub event tracking (Push, PR, Merge)
+- ✅ Webhook receiver with MongoDB storage
+- ✅ Auto-refreshing UI (15s polling)
+- ✅ Clean, modern event display with CSS Grid
 - ✅ TypeScript-ready JavaScript classes
 - ✅ Ready for deployment
 
 ---
 
-## 🧱 Tech Stack  
-- **Backend:** Flask (Python 3.14+)  
-- **Database:** MongoDB 8.2+  
-- **Frontend:** HTML5, Modern CSS, ES6+ JavaScript  
-- **Hosting:** Local development / Heroku / Render  
+## 🧱 Tech Stack
+
+- **Backend:** Flask (Python 3.14+)
+- **Database:** MongoDB 8.2+
+- **Frontend:** HTML5, Modern CSS, ES6+ JavaScript
+- **Hosting:** Local development / Heroku / Render
 - **Version Control:** GitHub + Webhooks
 
 ---
 
-## ⚙️ Quick Setup  
+## ⚙️ Quick Setup
 
-### 1. Clone & Install  
+### 1. Clone & Install
+
 ```bash
 git clone https://github.com/Laxmikant2002/webhook-repo.git
 cd webhook-repo
 pip install -r requirements.txt
 ```
 
-### 2. Set Environment Variables  
-Create a `.env` file:  
+### 2. Set Environment Variables
+
+Create a `.env` file:
+
 ```
 MONGO_URI=mongodb://localhost:27017/github_events
 FLASK_ENV=development
 DEBUG=True
 ```
 
-### 3. Start MongoDB  
+### 3. Start MongoDB
+
 ```bash
 # Windows
 mongod
 
-# macOS/Linux  
+# macOS/Linux
 sudo systemctl start mongod
 ```
 
-### 4. Run the App  
+### 4. Run the App
+
 ```bash
 python run_app.py
 ```
+
 Server runs at: `http://localhost:5000`
 
 ---
 
-## 🔗 GitHub Webhook Setup  
-1. Go to your **GitHub repo → Settings → Webhooks**  
-2. Add payload URL: `https://your-deployed-url.com/webhook`  
-3. Set content type to `application/json`  
-4. Select events: **Push**, **Pull Request**  
+## 🔗 GitHub Webhook Setup
+
+1. Go to your **GitHub repo → Settings → Webhooks**
+2. Add payload URL: `https://your-deployed-url.com/webhook`
+3. Set content type to `application/json`
+4. Select events: **Push**, **Pull Request**
 5. Save webhook ✅
 
 ---
 
-## 📁 Project Structure  
+## 📁 Project Structure
+
 ```
 webhook-repo/
 ├── run_app.py          # Flask application entry point
@@ -92,14 +104,16 @@ webhook-repo/
 
 ---
 
-## 🧪 Testing  
+## 🧪 Testing
 
 ### Manual Testing
-- Push to your GitHub repo → check UI updates in 15s  
-- Create a PR → see it appear  
+
+- Push to your GitHub repo → check UI updates in 15s
+- Create a PR → see it appear
 - Merge a branch → bonus points ✅
 
 ### API Testing
+
 ```bash
 # Test API endpoint
 curl http://localhost:5000/api/events
@@ -113,8 +127,10 @@ curl -X POST http://localhost:5000/webhook \
 
 ---
 
-## 🚀 Deployment (Optional)  
-Deploy on **Heroku** or **Render**:  
+## 🚀 Deployment (Optional)
+
+Deploy on **Heroku** or **Render**:
+
 ```bash
 # Heroku
 heroku create your-app-name
@@ -126,41 +142,46 @@ git push heroku main
 
 ---
 
-## 🧠 Notes  
-- UI polls MongoDB every 15 seconds for new events  
-- Events display in human-readable format (`1st April 2021 - 9:30 PM UTC`)  
-- No duplicate events shown (unique `request_id`)  
-- Modern CSS with custom properties and flexbox  
+## 🧠 Notes
+
+- UI polls MongoDB every 15 seconds for new events
+- Events display in human-readable format (`1st April 2021 - 9:30 PM UTC`)
+- No duplicate events shown (unique `request_id`)
+- Modern CSS with custom properties and flexbox
 - ES6+ JavaScript with proper class structure
 
 ---
 
-## 📬 Submission  
-**Repository Links:**  
-1. **action-repo:** https://github.com/Laxmikant2002/action-repo  
-2. **webhook-repo:** https://github.com/Laxmikant2002/webhook-repo  
+## 📬 Submission
+
+**Repository Links:**
+
+1. **action-repo:** https://github.com/Laxmikant2002/action-repo
+2. **webhook-repo:** https://github.com/Laxmikant2002/webhook-repo
 
 ---
 
 ## 🏆 Assessment Criteria Met
-- ✅ Webhook receiver handles PUSH & PULL_REQUEST events  
-- ✅ MongoDB integration with proper schema  
-- ✅ UI polling every 15 seconds  
-- ✅ Clean, minimal event display format  
-- ✅ No duplicate events  
-- ✅ MERGE event support (bonus points!)  
-- ✅ Modern, responsive design  
+
+- ✅ Webhook receiver handles PUSH & PULL_REQUEST events
+- ✅ MongoDB integration with proper schema
+- ✅ UI polling every 15 seconds
+- ✅ Clean, minimal event display format
+- ✅ No duplicate events
+- ✅ MERGE event support (bonus points!)
+- ✅ Modern, responsive design
 - ✅ Clean code with proper documentation
 
 ---
 
-## 👨‍💻 Author  
+## 👨‍💻 Author
+
 **Laxmikant**  
 Built for TechStaX Developer Assessment 🎯
 
 ---
 
-*Happy coding! 🚀*
+_Happy coding! 🚀_
 
 ## 🚀 Quick Start
 
